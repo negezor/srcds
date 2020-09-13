@@ -1,0 +1,34 @@
+{
+	"name": "@srcds/log-receiver",
+	"version": "0.0.1",
+	"description": "Receiver of SRCDS logs",
+	"license": "MIT",
+	"author": {
+		"name": "Vladlen (Negezor)",
+		"email": "negezor@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/negezor/srcds.git",
+		"directory": "packages/log-receiver"
+	},
+	"homepage": "https://github.com/negezor/srcds#readme",
+	"bugs": "https://github.com/negezor/srcds/issues",
+	"keywords": [
+		"srcds",
+		"log",
+		"log",
+		"receiver"
+	],
+	"files": [
+		"lib"
+	],
+	"main": "lib/index.js",
+	"types": "./lib/index.d.ts",
+	"engines": {
+		"node": ">=14.0.0"
+	},
+	"peerDependencies": {},
+	"dependencies": {},
+	"devDependencies": {}
+}
