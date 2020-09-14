@@ -1,6 +1,6 @@
 <p align="center">
-<a href="https://www.npmjs.com/package/@srcds/logger"><img src="https://img.shields.io/npm/v/@srcds/logger.svg?style=flat-square" alt="NPM version"></a>
-<a href="https://www.npmjs.com/package/@srcds/logger"><img src="https://img.shields.io/npm/dt/@srcds/logger.svg?style=flat-square" alt="NPM downloads"></a>
+<a href="https://www.npmjs.com/package/@srcds/log-receiver"><img src="https://img.shields.io/npm/v/@srcds/log-receiver.svg?style=flat-square" alt="NPM version"></a>
+<a href="https://www.npmjs.com/package/@srcds/log-receiver"><img src="https://img.shields.io/npm/dt/@srcds/log-receiver.svg?style=flat-square" alt="NPM downloads"></a>
 </p>
 
 Receiver of SRCDS logs
