@@ -8,21 +8,21 @@ import {
 	parseVector
 } from '../entities';
 
-export type SpawnedEventPayload = {
+export type ProjectileSpawnedEventPayload = {
 	item: string;
 	position: Vector;
 	velocity: Vector;
 };
 
-export type SpawnedEvent = IBaseEvent<'projectile_spawned', SpawnedEventPayload>;
+export type ProjectileSpawnedEvent = IBaseEvent<'projectile_spawned', ProjectileSpawnedEventPayload>;
 
 // eslint-disable-next-line max-len
-// Molotov projectile spawned at 470.226189 1001.444831 746.135715, velocity 225.051541 140.823573 -358.102564
-export const SpawnedParser = defineParser<SpawnedEvent>({
+// Molotov projectile projectilespawned at 470.226189 1001.444831 746.135715, velocity 225.051541 140.823573 -358.102564
+export const ProjectileSpawnedParser = defineParser<ProjectileSpawnedEvent>({
 	type: 'projectile_spawned',
 
 	patterns: [
-		concatPattern`^(?<item>.+) projectile spawned at (?<position>${vectorRe}), velocity (?<velocity>${vectorRe})$`
+		concatPattern`^(?<item>.+) projectile projectilespawned at (?<position>${vectorRe}), velocity (?<velocity>${vectorRe})$`
 	],
 
 	parse({
