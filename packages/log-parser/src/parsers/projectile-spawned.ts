@@ -22,7 +22,7 @@ export const projectileSpawnedParser = defineParser<ProjectileSpawnedEvent>({
 	type: 'projectile_spawned',
 
 	patterns: [
-		concatPattern`^(?<item>.+) projectile projectilespawned at (?<position>${vectorRe}), velocity (?<velocity>${vectorRe})$`
+		concatPattern`^(?<item>.+) projectile spawned at (?<position>${vectorRe}), velocity (?<velocity>${vectorRe})$`
 	],
 
 	parse({
