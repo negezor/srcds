@@ -12,7 +12,7 @@ const coreModules = builtinModules.filter(name => (
 	!/(^_|\/)/.test(name)
 ));
 
-const cacheRoot  = pathJoin(tmpdir(), '.rpt2_cache');
+const cacheRoot = pathJoin(tmpdir(), '.rpt2_cache');
 
 const getModulePath = path => (
 	pathJoin(__dirname, 'packages', path)
@@ -35,7 +35,7 @@ export default async () => (
 					input: pathJoin(src, 'index.ts'),
 					plugins: [
 						typescriptPlugin({
-							srcdsoot: cacheRoot ,
+							cacheRoot,
 
 							useTsconfigDeclarationDir: false,
 
