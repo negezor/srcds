@@ -19,7 +19,7 @@ export type PlayerUpdateEventPayload = {
 export type PlayerUpdateEvent = IBaseEvent<'player_update', PlayerUpdateEventPayload>;
 
 // "OldName<93><STEAM_1:0:12345><CT>" changed name to "NewName"
-export const playerupdateParser = defineParser<PlayerUpdateEvent>({
+export const playerUpdateParser = defineParser<PlayerUpdateEvent>({
 	type: 'player_update',
 
 	patterns: [

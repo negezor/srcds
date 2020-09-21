@@ -18,7 +18,7 @@ export type ProjectileSpawnedEvent = IBaseEvent<'projectile_spawned', Projectile
 
 // eslint-disable-next-line max-len
 // Molotov projectile projectilespawned at 470.226189 1001.444831 746.135715, velocity 225.051541 140.823573 -358.102564
-export const ProjectileSpawnedParser = defineParser<ProjectileSpawnedEvent>({
+export const projectileSpawnedParser = defineParser<ProjectileSpawnedEvent>({
 	type: 'projectile_spawned',
 
 	patterns: [
