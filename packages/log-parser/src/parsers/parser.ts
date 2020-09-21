@@ -1,6 +1,6 @@
 export interface IBaseEvent<T, P> {
 	type: T;
-	createdAt: Date;
+	receivedAt: Date;
 
 	payload: P;
 }
