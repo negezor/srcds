@@ -41,8 +41,7 @@ export const sayParser = defineParser<SayEvent>({
 				? 'global'
 				: 'team',
 
-
-				message
+			message
 		};
 	}
 });
