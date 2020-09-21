@@ -5,7 +5,8 @@ import { builtinModules } from 'module';
 import { join as pathJoin } from 'path';
 
 const MODULES = [
-	'log-receiver'
+	'log-receiver',
+	'log-parser'
 ];
 
 const coreModules = builtinModules.filter(name => (
