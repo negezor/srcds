@@ -1,4 +1,6 @@
 import {
+	IBaseParser,
+
 	assistParser,
 	attackedParser,
 	connectionParser,
@@ -89,7 +91,16 @@ export type Events =
 
 const { length: LENGTH_OF_DATE } = '10/20/2020 - 10:30:50: ';
 
-export function parse(rawLog: string): Events | undefined {
+export interface IParseOptions {
+	parsers?: IBaseParser<Events>[];
+}
+
+export function parse(
+	rawLog: string,
+	{
+		parsers = defaultParsers
+	}: IParseOptions = {}
+): Events | undefined {
 	const receivedAt = new Date(
 		rawLog
 			.substring(0, LENGTH_OF_DATE - 2)
@@ -98,7 +109,7 @@ export function parse(rawLog: string): Events | undefined {
 
 	const log = rawLog.substring(LENGTH_OF_DATE);
 
-	for (const parser of defaultParsers) {
+	for (const parser of parsers) {
 		const pattern = parser.patterns.find(item => (
 			item.test(log)
 		));
