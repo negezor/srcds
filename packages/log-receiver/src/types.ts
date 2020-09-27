@@ -22,5 +22,5 @@ export interface ISrcdsLogReceiverServer {
 	hostname: string;
 	port: number;
 
-	password?: undefined;
+	password?: string;
 }
