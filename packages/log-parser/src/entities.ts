@@ -42,17 +42,18 @@ export interface IWorldEntity {
 	kind: 'world';
 }
 
+export interface IConsoleEntity {
+	kind: 'console';
+}
+
 export interface IChickenEntity {
 	kind: 'chicken';
 
 	entityId: number;
 }
 
-export interface IPlayerEntity {
-	kind: 'player';
-
+export interface IBasePlayerEntity {
 	entityId: number;
-	playerId: string;
 
 	name: string;
 
@@ -61,7 +62,17 @@ export interface IPlayerEntity {
 	team: ITeamEntity;
 }
 
-export type Entity = IWorldEntity | IChickenEntity | IPlayerEntity;
+export interface IPlayerEntity extends IBasePlayerEntity {
+	kind: 'player';
+
+	playerId: string;
+}
+
+export interface IBotEntity extends IBasePlayerEntity {
+	kind: 'bot';
+}
+
+export type Entity = IWorldEntity | IConsoleEntity | IChickenEntity | IPlayerEntity | IBotEntity;
 
 export const parseTeam = (rawTeam: string): ITeamEntity => {
 	const id = teamMapper[rawTeam] ?? Team.UNKNOWN;
@@ -93,7 +104,7 @@ export const parseEntity = (rawEntity: string): Entity => {
 
 	if (basePlayerRe.test(rawEntity)) {
 		const {
-			entityId,
+			entityId: rawEntityId,
 			playerId,
 
 			name,
@@ -106,12 +117,31 @@ export const parseEntity = (rawEntity: string): Entity => {
 			team: string;
 		};
 
+		if (playerId === 'Console') {
+			return {
+				kind: 'console'
+			};
+		}
+
+		const entityId = Number(rawEntityId);
 		const team = parseTeam(rawTeam);
+
+		if (playerId === 'BOT') {
+			return {
+				kind: 'bot',
+
+				entityId,
+
+				name,
+
+				team
+			};
+		}
 
 		return {
 			kind: 'player',
 
-			entityId: Number(entityId),
+			entityId,
 			playerId,
 
 			name,
