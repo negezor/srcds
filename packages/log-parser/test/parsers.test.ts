@@ -41,6 +41,58 @@ describe('Parsers', (): void => {
 				expect(result.receivedAt.getTime()).toBe(eventDate.getTime());
 			}
 		});
+
+		it('should correctly parse entities', (): void => {
+			const events: [string, Record<string, unknown>][] = [
+				['"PlayerName<93><STEAM_1:0:12345><CT>" [-1117 2465 -72] committed suicide with "world"', {
+					player: {
+						kind: 'player',
+
+						entityId: 93,
+						steamId: 'STEAM_1:0:12345',
+
+						name: 'PlayerName',
+
+						team: counterTerroristTeam
+					},
+					how: 'world'
+				}],
+				['"BotName<93><BOT><CT>" [-1117 2465 -72] committed suicide with "world"', {
+					player: {
+						kind: 'bot',
+
+						entityId: 93,
+
+						name: 'BotName',
+
+						team: counterTerroristTeam
+					},
+					how: 'world'
+				}],
+				['"Console<><Console><>" [-1117 2465 -72] committed suicide with "world"', {
+					player: {
+						kind: 'console'
+					},
+					how: 'world'
+				}],
+				['"chicken<93>" [-1117 2465 -72] committed suicide with "world"', {
+					player: {
+						kind: 'chicken',
+						entityId: 93
+					},
+					how: 'world'
+				}]
+			];
+
+			for (const [log, event] of events) {
+				const result = parse(getEventString(log));
+
+				ok(result !== undefined, `Failed parse log: ${log}`);
+
+				expect(result.type).toBe('suicide');
+				expect(result.payload).toMatchObject(event);
+			}
+		});
 	});
 
 	describe('connection', (): void => {
