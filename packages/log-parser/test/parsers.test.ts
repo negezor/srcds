@@ -58,7 +58,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 93,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'ConnectionPlayer',
 
@@ -83,7 +83,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 93,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'ConnectionPlayer',
 
@@ -108,7 +108,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 93,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'ConnectionPlayer',
 
@@ -134,7 +134,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 93,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'AttackerName',
 
@@ -146,7 +146,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 94,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'VictimName',
 
@@ -174,7 +174,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 93,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'AssitantName',
 
@@ -184,7 +184,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 92,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'VictimName',
 
@@ -208,7 +208,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 93,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'AttackerName',
 
@@ -220,7 +220,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 94,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'VictimName',
 
@@ -257,7 +257,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 93,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'OldName',
 
@@ -291,7 +291,7 @@ describe('Parsers', (): void => {
 				kind: 'player',
 
 				entityId: 93,
-				playerId: 'STEAM_1:0:12345',
+				steamId: 'STEAM_1:0:12345',
 
 				name: 'PlayerName',
 
@@ -395,7 +395,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 93,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'PlayerName',
 
@@ -428,7 +428,7 @@ describe('Parsers', (): void => {
 				kind: 'player',
 
 				entityId: 93,
-				playerId: 'STEAM_1:0:12345',
+				steamId: 'STEAM_1:0:12345',
 
 				name: 'PlayerName',
 
@@ -535,7 +535,7 @@ describe('Parsers', (): void => {
 				kind: 'player',
 
 				entityId: 93,
-				playerId: 'STEAM_1:0:12345',
+				steamId: 'STEAM_1:0:12345',
 
 				name: 'PlayerName',
 
@@ -584,7 +584,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 93,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'PlayerName',
 
@@ -684,7 +684,7 @@ describe('Parsers', (): void => {
 					kind: 'player',
 
 					entityId: 93,
-					playerId: 'STEAM_1:0:12345',
+					steamId: 'STEAM_1:0:12345',
 
 					name: 'PlayerName',
 
@@ -708,7 +708,7 @@ describe('Parsers', (): void => {
 						kind: 'player',
 
 						entityId: 93,
-						playerId: 'STEAM_1:0:12345',
+						steamId: 'STEAM_1:0:12345',
 
 						name: 'PlayerName',
 

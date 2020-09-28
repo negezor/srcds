@@ -1,4 +1,4 @@
-const basePlayerRe = /"(?<name>.+)<(?<entityId>\d*)><(?<playerId>(?:STEAM_[0-5]:[01]:\d+|BOT|Console))>(?:<(?<team>[^>]*)>)?"/;
+const basePlayerRe = /"(?<name>.+)<(?<entityId>\d*)><(?<steamId>(?:STEAM_[0-5]:[01]:\d+|BOT|Console))>(?:<(?<team>[^>]*)>)?"/;
 const baseEntityRe = /"chicken<(?<entityId>\d+)>"/;
 const baseWorldRe = /World/;
 
@@ -65,7 +65,7 @@ export interface IBasePlayerEntity {
 export interface IPlayerEntity extends IBasePlayerEntity {
 	kind: 'player';
 
-	playerId: string;
+	steamId: string;
 }
 
 export interface IBotEntity extends IBasePlayerEntity {
@@ -105,19 +105,19 @@ export const parseEntity = (rawEntity: string): Entity => {
 	if (basePlayerRe.test(rawEntity)) {
 		const {
 			entityId: rawEntityId,
-			playerId,
+			steamId,
 
 			name,
 			team: rawTeam
 		} = rawEntity.match(basePlayerRe)!.groups as {
 			entityId: string;
-			playerId: string;
+			steamId: string;
 
 			name: string;
 			team: string;
 		};
 
-		if (playerId === 'Console') {
+		if (steamId === 'Console') {
 			return {
 				kind: 'console'
 			};
@@ -126,7 +126,7 @@ export const parseEntity = (rawEntity: string): Entity => {
 		const entityId = Number(rawEntityId);
 		const team = parseTeam(rawTeam);
 
-		if (playerId === 'BOT') {
+		if (steamId === 'BOT') {
 			return {
 				kind: 'bot',
 
@@ -142,7 +142,7 @@ export const parseEntity = (rawEntity: string): Entity => {
 			kind: 'player',
 
 			entityId,
-			playerId,
+			steamId,
 
 			name,
 
