@@ -23,8 +23,9 @@
 		"watch": "npm run rollup:watch",
 		"rollup:build": "NODE_ENV=production rollup -c rollup.config.js",
 		"rollup:watch": "npm run rollup:build -- -w",
-		"test": "npm run test:jest && npm run test:eslint",
+		"test": "npm run test:jest && npm run lint",
 		"test:jest": "jest --config jest.config.json --no-cache",
-		"test:eslint": "eslint --ext .ts --ignore-path .gitignore packages/*/src/**/*.ts"
+		"lint": "npm run lint:biome",
+        "lint:biome": "biome lint --apply ./packages/*/src"
 	}
 }
