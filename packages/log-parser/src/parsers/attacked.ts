@@ -28,7 +28,6 @@ export type AttackedEventPayload = {
 
 export type AttackedEvent = IBaseEvent<'attacked', AttackedEventPayload>;
 
-// eslint-disable-next-line max-len
 // "AttackerName<93><STEAM_1:0:12345><CT>" [820 2225 -34] attacked "VictimName<94><STEAM_1:0:12345><TERRORIST>" [1001 2164 0] with "ak47" (damage "34") (damage_armor "4") (health "29") (armor "95") (hitgroup "stomach")
 export const attackedParser = defineParser<AttackedEvent>({
 	type: 'attacked',

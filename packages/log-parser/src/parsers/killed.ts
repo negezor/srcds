@@ -21,7 +21,6 @@ export type KilledEventPayload = {
 
 export type KilledEvent = IBaseEvent<'killed', KilledEventPayload>;
 
-// eslint-disable-next-line max-len
 // "AttackerName<93><STEAM_1:0:12345><CT>" [698 2222 -69] killed "VictimName<94><STEAM_1:0:12345><TERRORIST>" [1303 2143 64] with "hkp2000" (throughsmoke headshot)
 export const killedParser = defineParser<KilledEvent>({
 	type: 'killed',

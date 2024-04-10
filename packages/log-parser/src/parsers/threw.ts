@@ -18,7 +18,6 @@ export type ThrewEventPayload = {
 
 export type ThrewEvent = IBaseEvent<'threw', ThrewEventPayload>;
 
-// eslint-disable-next-line max-len
 // "PlayerName<93><STEAM_1:0:12345><CT>" threw molotov [-2035 1521 35]
 export const threwParser = defineParser<ThrewEvent>({
 	type: 'threw',

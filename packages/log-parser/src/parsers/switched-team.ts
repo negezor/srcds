@@ -19,7 +19,6 @@ export type SwitchedTeamEventPayload = {
 
 export type SwitchedTeamEvent = IBaseEvent<'switched_team', SwitchedTeamEventPayload>;
 
-// eslint-disable-next-line max-len
 // "PlayerName<93><STEAM_1:0:12345>" switched from team <TERRORIST> to <CT>
 export const switchedTeamParser = defineParser<SwitchedTeamEvent>({
 	type: 'switched_team',

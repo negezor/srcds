@@ -16,7 +16,6 @@ export type AssistEventPayload = {
 
 export type AssistEvent = IBaseEvent<'assist', AssistEventPayload>;
 
-// eslint-disable-next-line max-len
 // "AssitantName<93><STEAM_1:0:12345><CT>" assisted killing "VictimName<92><STEAM_1:0:12345><TERRORIST>"
 export const assistParser = defineParser<AssistEvent>({
 	type: 'assist',

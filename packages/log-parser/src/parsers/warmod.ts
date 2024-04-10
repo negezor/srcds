@@ -5,7 +5,6 @@ export type WarmodEventPayload = Record<string, unknown>;
 
 export type WarmodEvent = IBaseEvent<'warmod', WarmodEventPayload>;
 
-// eslint-disable-next-line max-len
 // [WarMod_BFG] {JSON}
 export const warmodParser = defineParser<WarmodEvent>({
 	type: 'warmod',

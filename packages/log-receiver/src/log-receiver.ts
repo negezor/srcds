@@ -12,7 +12,6 @@ import {
 	ISrcdsLogReceiverOptions
 } from './types';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface SrcdsLogReceiver {
 	on(event: 'error', listener: (error: Error) => void): this
 	on(event: 'log', listener: (log: ILogEvent) => void): this;

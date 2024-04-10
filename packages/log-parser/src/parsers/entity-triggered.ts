@@ -30,7 +30,6 @@ export type EntityTriggeredEventPayload = {
 
 export type EntityTriggeredEvent = IBaseEvent<'entity_triggered', EntityTriggeredEventPayload>;
 
-// eslint-disable-next-line max-len
 // "Entity<93><STEAM_1:0:12345><CT>" triggered "Defused_The_Bomb"
 // World triggered "Match_Start" on "de_inferno"
 // World triggered "Round_Start"

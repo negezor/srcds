@@ -19,7 +19,6 @@ const getModulePath = path => (
 	pathJoin(__dirname, 'packages', path)
 );
 
-// eslint-disable-next-line import/no-default-export
 export default async () => (
 	Promise.all(
 		MODULES

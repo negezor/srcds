@@ -18,7 +18,6 @@ export type SuicideEventPayload = {
 
 export type SuicideEvent = IBaseEvent<'suicide', SuicideEventPayload>;
 
-// eslint-disable-next-line max-len
 // "PlayerName<93><STEAM_1:0:12345><TERRORIST>" [-1117 2465 -72] committed suicide with "world"
 export const suicideParser = defineParser<SuicideEvent>({
 	type: 'suicide',

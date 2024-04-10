@@ -47,7 +47,6 @@ ServerLogFileEvent
 
 export type ServerLogEvent = IBaseEvent<'server_log', ServerLogEventPayload>;
 
-// eslint-disable-next-line max-len
 // Log file started (file "logs\L172_028_192_001_27015_202009211728_000.log") (game "C:\Program Files (x86)\Steam\steamapps\common\Counter-Strike Global Offensive\csgo") (version "7929")
 // Log file closed
 // Loading map "de_inferno"
