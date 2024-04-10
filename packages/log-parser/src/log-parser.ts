@@ -1,5 +1,5 @@
 import {
-	IBaseParser,
+	type IBaseParser,
 
 	assistParser,
 	attackedParser,
@@ -22,26 +22,26 @@ import {
 	validatedParser,
 	warmodParser,
 
-	AssistEvent,
-	AttackedEvent,
-	ConnectionEvent,
-	EntityTriggeredEvent,
-	KilledEvent,
-	PlayerUpdateEvent,
-	ProjectileSpawnedEvent,
-	PurchasedEvent,
-	RconEvent,
-	SayEvent,
-	ScoredEvent,
-	ServerCVarEvent,
-	ServerLogEvent,
-	SuicideEvent,
-	SwitchedTeamEvent,
-	TeamNameEvent,
-	TeamTriggeredEvent,
-	ThrewEvent,
-	ValidatedEvent,
-	WarmodEvent
+	type AssistEvent,
+	type AttackedEvent,
+	type ConnectionEvent,
+	type EntityTriggeredEvent,
+	type KilledEvent,
+	type PlayerUpdateEvent,
+	type ProjectileSpawnedEvent,
+	type PurchasedEvent,
+	type RconEvent,
+	type SayEvent,
+	type ScoredEvent,
+	type ServerCVarEvent,
+	type ServerLogEvent,
+	type SuicideEvent,
+	type SwitchedTeamEvent,
+	type TeamNameEvent,
+	type TeamTriggeredEvent,
+	type ThrewEvent,
+	type ValidatedEvent,
+	type WarmodEvent
 } from './parsers';
 
 export const defaultParsers = [
@@ -118,6 +118,7 @@ export function parse(
 			continue;
 		}
 
+		// biome-ignore lint/style/noNonNullAssertion: we already test by pattern
 		const groups = log.match(pattern)!.groups!;
 
 		const payload = parser.parse(groups);

@@ -1,6 +1,6 @@
-import { IBaseEvent, defineParser } from './parser';
+import { type IBaseEvent, defineParser } from './parser';
 import { concatPattern } from '../helpers';
-import { entityRe, IPlayerEntity, parseEntity } from '../entities';
+import { entityRe, type IPlayerEntity, parseEntity } from '../entities';
 
 export interface IConnectionConnectedEvent {
 	kind: 'connected';

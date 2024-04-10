@@ -1,6 +1,6 @@
-import { IBaseEvent, defineParser } from './parser';
+import { type IBaseEvent, defineParser } from './parser';
 import { concatPattern } from '../helpers';
-import { ITeamEntity, parseTeam } from '../entities';
+import { type ITeamEntity, parseTeam } from '../entities';
 
 export type ScoredEventPayload = {
 	team: ITeamEntity;

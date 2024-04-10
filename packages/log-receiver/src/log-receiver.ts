@@ -1,10 +1,10 @@
-import { Socket, createSocket } from 'dgram';
-import { EventEmitter } from 'events';
-import { promisify } from 'util';
+import { type Socket, createSocket } from 'node:dgram';
+import { EventEmitter } from 'node:events';
+import { promisify } from 'node:util';
 
 import { arraify } from './helpers';
 import { parsePacket } from './parser';
-import {
+import type {
 	AllowArray,
 
 	ILogEvent,
@@ -17,6 +17,7 @@ export interface SrcdsLogReceiver {
 	on(event: 'log', listener: (log: ILogEvent) => void): this;
 }
 
+// biome-ignore lint/suspicious/noUnsafeDeclarationMerging: we should override default event emitter types
 export class SrcdsLogReceiver extends EventEmitter {
 	protected socket: Socket | undefined;
 

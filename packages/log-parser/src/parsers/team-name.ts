@@ -1,7 +1,7 @@
-import { IBaseEvent, defineParser } from './parser';
+import { type IBaseEvent, defineParser } from './parser';
 import { concatPattern } from '../helpers';
 import {
-	ITeamEntity,
+	type ITeamEntity,
 
 	parseTeam
 } from '../entities';

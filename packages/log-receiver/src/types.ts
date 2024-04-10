@@ -1,4 +1,4 @@
-import { RemoteInfo } from 'dgram';
+import type { RemoteInfo } from 'node:dgram';
 
 export type AllowArray<T> = T | T[];
 

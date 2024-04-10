@@ -91,6 +91,7 @@ export const parseEntity = (rawEntity: string): Entity => {
 	}
 
 	if (baseEntityRe.test(rawEntity)) {
+		// biome-ignore lint/style/noNonNullAssertion: we already test by pattern
 		const { entityId } = rawEntity.match(baseEntityRe)!.groups! as {
 			entityId: string;
 		};
@@ -109,6 +110,7 @@ export const parseEntity = (rawEntity: string): Entity => {
 
 			name,
 			team: rawTeam
+			// biome-ignore lint/style/noNonNullAssertion: we already test by pattern
 		} = rawEntity.match(basePlayerRe)!.groups as {
 			entityId: string;
 			steamId: string;

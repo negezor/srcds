@@ -1,4 +1,4 @@
-import { IBaseEvent, defineParser } from './parser';
+import { type IBaseEvent, defineParser } from './parser';
 import { concatPattern } from '../helpers';
 
 export type RconEventPayload = {
