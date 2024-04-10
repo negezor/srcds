@@ -22,7 +22,7 @@
 		"rollup:build": "NODE_ENV=production rollup --bundleConfigAsCjs -c rollup.config.js",
 		"rollup:watch": "npm run rollup:build -- -w",
 		"test": "npm run test:node && npm run lint",
-        "test:node": "node --import tsx --test test/*.test.ts",
+        "test:node": "node --import tsx --test packages/*/test/*.test.ts",
 		"lint": "npm run lint:biome",
 		"lint:biome": "biome lint --apply ./packages/*/src"
 	}
