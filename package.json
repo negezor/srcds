@@ -19,7 +19,7 @@
 		"prepare": "npm run rollup:build && npm run test",
 		"build": "npm run rollup:build",
 		"watch": "npm run rollup:watch",
-		"rollup:build": "NODE_ENV=production rollup -c rollup.config.js",
+		"rollup:build": "NODE_ENV=production rollup --bundleConfigAsCjs -c rollup.config.js",
 		"rollup:watch": "npm run rollup:build -- -w",
 		"test": "npm run test:node && npm run lint",
         "test:node": "node --import tsx --test test/*.test.ts",
