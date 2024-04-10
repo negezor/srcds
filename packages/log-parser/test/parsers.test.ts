@@ -1,4 +1,5 @@
-import { ok } from 'assert';
+import { describe, it } from 'node:test';
+import { strictEqual, deepStrictEqual, ok } from 'node:assert';
 
 import { Team, parse } from '..';
 
@@ -37,8 +38,8 @@ describe('Parsers', (): void => {
 
 				ok(result !== undefined, `Failed parse log: ${log}`);
 
-				expect(result.receivedAt).toBeInstanceOf(Date);
-				expect(result.receivedAt.getTime()).toBe(eventDate.getTime());
+				ok(result.receivedAt instanceof Date);
+				strictEqual(result.receivedAt.getTime(), eventDate.getTime());
 			}
 		});
 
@@ -53,9 +54,12 @@ describe('Parsers', (): void => {
 
 						name: 'PlayerName',
 
-						team: counterTerroristTeam
+						position: [-1117, 2465, -72],
+
+						team: counterTerroristTeam,
 					},
-					how: 'world'
+					how: 'world',
+
 				}],
 				['"BotName<93><BOT><CT>" [-1117 2465 -72] committed suicide with "world"', {
 					player: {
@@ -65,22 +69,30 @@ describe('Parsers', (): void => {
 
 						name: 'BotName',
 
+						position: [-1117, 2465, -72],
+
 						team: counterTerroristTeam
 					},
-					how: 'world'
+					how: 'world',
+
 				}],
 				['"Console<><Console><>" [-1117 2465 -72] committed suicide with "world"', {
 					player: {
-						kind: 'console'
+						kind: 'console',
+
+						position: [-1117, 2465, -72],
 					},
-					how: 'world'
+					how: 'world',
 				}],
 				['"chicken<93>" [-1117 2465 -72] committed suicide with "world"', {
 					player: {
 						kind: 'chicken',
-						entityId: 93
+						entityId: 93,
+
+						position: [-1117, 2465, -72],
 					},
-					how: 'world'
+					how: 'world',
+
 				}]
 			];
 
@@ -89,8 +101,8 @@ describe('Parsers', (): void => {
 
 				ok(result !== undefined, `Failed parse log: ${log}`);
 
-				expect(result.type).toBe('suicide');
-				expect(result.payload).toMatchObject(event);
+				strictEqual(result.type, 'suicide');
+				deepStrictEqual(result.payload, event);
 			}
 		});
 	});
@@ -103,8 +115,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('connection');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'connection');
+			deepStrictEqual(result.payload, {
 				kind: 'connected',
 				player: {
 					kind: 'player',
@@ -128,8 +140,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('connection');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'connection');
+			deepStrictEqual(result.payload, {
 				kind: 'entered',
 				player: {
 					kind: 'player',
@@ -153,8 +165,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('connection');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'connection');
+			deepStrictEqual(result.payload, {
 				kind: 'disconnected',
 				player: {
 					kind: 'player',
@@ -180,8 +192,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('killed');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'killed');
+			deepStrictEqual(result.payload, {
 				attacker: {
 					kind: 'player',
 
@@ -220,8 +232,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('assist');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'assist');
+			deepStrictEqual(result.payload, {
 				assistant: {
 					kind: 'player',
 
@@ -254,8 +266,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('attacked');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'attacked');
+			deepStrictEqual(result.payload, {
 				attacker: {
 					kind: 'player',
 
@@ -302,8 +314,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('player_update');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'player_update');
+			deepStrictEqual(result.payload, {
 				kind: 'change_name',
 				player: {
 					kind: 'player',
@@ -328,8 +340,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('projectile_spawned');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'projectile_spawned');
+			deepStrictEqual(result.payload, {
 				item: 'molotov',
 				position: [470.226189, 1001.444831, 746.135715],
 				velocity: [225.051541, 140.823573, -358.102564]
@@ -427,8 +439,8 @@ describe('Parsers', (): void => {
 
 				ok(result !== undefined, `Failed parse log: ${log}`);
 
-				expect(result.type).toBe('entity_triggered');
-				expect(result.payload).toMatchObject(event);
+				strictEqual(result.type, 'entity_triggered');
+				deepStrictEqual(result.payload, event);
 			}
 		});
 	});
@@ -441,8 +453,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('purchased');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'purchased');
+			deepStrictEqual(result.payload, {
 				player: {
 					kind: 'player',
 
@@ -466,8 +478,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('rcon');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'rcon');
+			deepStrictEqual(result.payload, {
 				address: '127.0.0.1:49987',
 				command: 'say hello'
 			});
@@ -505,8 +517,8 @@ describe('Parsers', (): void => {
 
 				ok(result !== undefined, `Failed parse log: ${log}`);
 
-				expect(result.type).toBe('say');
-				expect(result.payload).toMatchObject(event);
+				strictEqual(result.type, 'say');
+				deepStrictEqual(result.payload, event);
 			}
 		});
 	});
@@ -529,8 +541,8 @@ describe('Parsers', (): void => {
 
 				ok(result !== undefined, `Failed parse log: ${log}`);
 
-				expect(result.type).toBe('server_cvar');
-				expect(result.payload).toMatchObject(event);
+				strictEqual(result.type, 'server_cvar');
+				deepStrictEqual(result.payload, event);
 			}
 		});
 	});
@@ -547,12 +559,16 @@ describe('Parsers', (): void => {
 				}],
 				['Log file closed', {
 					kind: 'log_file',
-					state: 'closed'
+					state: 'closed',
+					filePath: undefined,
+					gamePath: undefined,
+					version: undefined,
 				}],
 				['Loading map "de_inferno"', {
 					kind: 'map',
 					state: 'loading',
-					map: 'de_inferno'
+					map: 'de_inferno',
+					crc: undefined
 				}],
 				['Started map "de_inferno" (CRC "-896074606")', {
 					kind: 'map',
@@ -575,8 +591,8 @@ describe('Parsers', (): void => {
 
 				ok(result !== undefined, `Failed parse log: ${log}`);
 
-				expect(result.type).toBe('server_log');
-				expect(result.payload).toMatchObject(event);
+				strictEqual(result.type, 'server_log');
+				deepStrictEqual(result.payload, event);
 			}
 		});
 	});
@@ -616,8 +632,8 @@ describe('Parsers', (): void => {
 
 				ok(result !== undefined, `Failed parse log: ${log}`);
 
-				expect(result.type).toBe('suicide');
-				expect(result.payload).toMatchObject(event);
+				strictEqual(result.type, 'suicide');
+				deepStrictEqual(result.payload, event);
 			}
 		});
 	});
@@ -630,8 +646,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('switched_team');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'switched_team');
+			deepStrictEqual(result.payload, {
 				player: {
 					kind: 'player',
 
@@ -657,8 +673,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('team_name');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'team_name');
+			deepStrictEqual(result.payload, {
 				team: counterTerroristTeam,
 
 				name: 'Test'
@@ -716,8 +732,8 @@ describe('Parsers', (): void => {
 
 				ok(result !== undefined, `Failed parse log: ${log}`);
 
-				expect(result.type).toBe('team_triggered');
-				expect(result.payload).toMatchObject(event);
+				strictEqual(result.type, 'team_triggered');
+				deepStrictEqual(result.payload, event);
 			}
 		});
 	});
@@ -730,8 +746,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('threw');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'threw');
+			deepStrictEqual(result.payload, {
 				player: {
 					kind: 'player',
 
@@ -783,8 +799,8 @@ describe('Parsers', (): void => {
 
 				ok(result !== undefined, `Failed parse log: ${log}`);
 
-				expect(result.type).toBe('validated');
-				expect(result.payload).toMatchObject(event);
+				strictEqual(result.type, 'validated');
+				deepStrictEqual(result.payload, event);
 			}
 		});
 	});
@@ -797,8 +813,8 @@ describe('Parsers', (): void => {
 
 			ok(result !== undefined, `Failed parse log: ${log}`);
 
-			expect(result.type).toBe('warmod');
-			expect(result.payload).toMatchObject({
+			strictEqual(result.type, 'warmod');
+			deepStrictEqual(result.payload, {
 				event: 'test'
 			});
 		});
