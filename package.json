@@ -7,6 +7,7 @@
 	"engines": {
 		"node": ">=14.0.0"
 	},
+	"type": "module",
 	"devDependencies": {
 		"@biomejs/biome": "^1.6.4",
 		"@types/node": "^20.12.7",
@@ -20,7 +21,7 @@
 		"build": "npm run rollup:build",
 		"watch": "npm run rollup:watch",
 		"clean": "rm -rf ./packages/*/lib",
-		"rollup:build": "NODE_ENV=production rollup --bundleConfigAsCjs -c rollup.config.js",
+		"rollup:build": "NODE_ENV=production rollup -c rollup.config.js",
 		"rollup:watch": "npm run rollup:build -- -w",
 		"test": "npm run test:node && npm run lint",
         "test:node": "node --import tsx --test packages/*/test/*.test.ts",

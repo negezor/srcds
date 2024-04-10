@@ -1,8 +1,9 @@
 import typescriptPlugin from 'rollup-plugin-typescript2';
 
-import { tmpdir } from 'os';
-import { builtinModules } from 'module';
-import { join as pathJoin } from 'path';
+import { tmpdir } from 'node:os';
+import { fileURLToPath } from 'node:url';
+import { builtinModules } from 'node:module';
+import { join as pathJoin } from 'node:path';
 
 const MODULES = [
 	'log-receiver',
@@ -16,7 +17,11 @@ const coreModules = builtinModules.filter(name => (
 const cacheRoot = pathJoin(tmpdir(), '.rpt2_cache');
 
 const getModulePath = path => (
-	pathJoin(__dirname, 'packages', path)
+    pathJoin(
+        fileURLToPath(new URL('.', import.meta.url)),
+        'packages',
+        path
+    )
 );
 
 export default async () => (
@@ -25,8 +30,13 @@ export default async () => (
 			.map(getModulePath)
 			.map(async (modulePath) => {
 				const modulePkg = await import(
-					pathJoin(modulePath, 'package.json')
-				);
+                    pathJoin(modulePath, 'package.json'),
+                    {
+                        assert: {
+                            type: 'json'
+                        }
+                    },
+                );
 
 				const src = pathJoin(modulePath, 'src');
 				const lib = pathJoin(modulePath, 'lib');
