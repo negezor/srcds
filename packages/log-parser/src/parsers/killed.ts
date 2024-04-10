@@ -1,59 +1,51 @@
-import { type IBaseEvent, defineParser } from './parser';
+import { type Entity, entityRe, parseEntity, parseVector, vectorRe } from '../entities';
 import { concatPattern } from '../helpers';
-import {
-	type Entity,
-
-	entityRe,
-	vectorRe,
-
-	parseEntity,
-	parseVector
-} from '../entities';
+import { type IBaseEvent, defineParser } from './parser';
 
 export type KilledEventPayload = {
-	attacker: Entity;
+    attacker: Entity;
 
-	victim: Entity;
+    victim: Entity;
 
-	weaponName: string;
-	modifiers: ('headshot' | 'penetrated' | 'throughsmoke' | 'noscope')[];
+    weaponName: string;
+    modifiers: ('headshot' | 'penetrated' | 'throughsmoke' | 'noscope')[];
 };
 
 export type KilledEvent = IBaseEvent<'killed', KilledEventPayload>;
 
 // "AttackerName<93><STEAM_1:0:12345><CT>" [698 2222 -69] killed "VictimName<94><STEAM_1:0:12345><TERRORIST>" [1303 2143 64] with "hkp2000" (throughsmoke headshot)
 export const killedParser = defineParser<KilledEvent>({
-	type: 'killed',
+    type: 'killed',
 
-	patterns: [
-		concatPattern`^(?<attacker>${entityRe}) \\[(?<attackerPosition>${vectorRe})\\] killed (?<victim>${entityRe}) \\[(?<victimPosition>${vectorRe})\\] with "(?<weaponName>[^"]+)"(?: \\((?<modifiers>[^\\)]+)\\))?$`
-	],
+    patterns: [
+        concatPattern`^(?<attacker>${entityRe}) \\[(?<attackerPosition>${vectorRe})\\] killed (?<victim>${entityRe}) \\[(?<victimPosition>${vectorRe})\\] with "(?<weaponName>[^"]+)"(?: \\((?<modifiers>[^\\)]+)\\))?$`,
+    ],
 
-	parse({
-		attacker,
-		attackerPosition,
+    parse({
+        attacker,
+        attackerPosition,
 
-		victim,
-		victimPosition,
+        victim,
+        victimPosition,
 
-		weaponName,
-		modifiers
-	}) {
-		return {
-			attacker: {
-				...parseEntity(attacker),
+        weaponName,
+        modifiers,
+    }) {
+        return {
+            attacker: {
+                ...parseEntity(attacker),
 
-				position: parseVector(attackerPosition)
-			},
-			victim: {
-				...parseEntity(victim),
+                position: parseVector(attackerPosition),
+            },
+            victim: {
+                ...parseEntity(victim),
 
-				position: parseVector(victimPosition)
-			},
+                position: parseVector(victimPosition),
+            },
 
-			weaponName,
+            weaponName,
 
-			modifiers: (modifiers?.split(' ') ?? []) as KilledEventPayload['modifiers']
-		};
-	}
+            modifiers: (modifiers?.split(' ') ?? []) as KilledEventPayload['modifiers'],
+        };
+    },
 });

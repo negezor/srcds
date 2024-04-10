@@ -1,4 +1,5 @@
-const basePlayerRe = /"(?<name>.+)<(?<entityId>\d*)><(?<steamId>(?:STEAM_[0-5]:[01]:\d+|BOT|Console))>(?:<(?<team>[^>]*)>)?"/;
+const basePlayerRe =
+    /"(?<name>.+)<(?<entityId>\d*)><(?<steamId>(?:STEAM_[0-5]:[01]:\d+|BOT|Console))>(?:<(?<team>[^>]*)>)?"/;
 const baseEntityRe = /"chicken<(?<entityId>\d+)>"/;
 const baseWorldRe = /World/;
 
@@ -6,155 +7,153 @@ export const entityRe = /".+<\d*><(?:STEAM_[0-5]:[01]:\d+|BOT|Console)>(?:<[^>]*
 export const vectorRe = /\[?[-.\d]+ [-.\d]+ [-.\d]+\]?/;
 
 export enum Team {
-	UNASSIGNED = 0,
-	SPECTATOR = 1,
+    UNASSIGNED = 0,
+    SPECTATOR = 1,
 
-	// CS:GO
-	TERRORISTS = 2,
-	COUNTER_TERRORISTS = 3,
+    // CS:GO
+    TERRORISTS = 2,
+    COUNTER_TERRORISTS = 3,
 
-	// TF2
-	// RED = 2,
-	// BLUE = 3,
+    // TF2
+    // RED = 2,
+    // BLUE = 3,
 
-	UNKNOWN = 999
+    UNKNOWN = 999,
 }
 
 const teamMapper: Record<string, Team> = {
-	Unassigned: Team.UNASSIGNED,
-	Spectator: Team.SPECTATOR,
+    Unassigned: Team.UNASSIGNED,
+    Spectator: Team.SPECTATOR,
 
-	TERRORIST: Team.TERRORISTS,
-	CT: Team.COUNTER_TERRORISTS,
+    TERRORIST: Team.TERRORISTS,
+    CT: Team.COUNTER_TERRORISTS,
 
-	Red: Team.TERRORISTS,
-	Blue: Team.COUNTER_TERRORISTS
+    Red: Team.TERRORISTS,
+    Blue: Team.COUNTER_TERRORISTS,
 };
 
 export type Vector = [number, number, number];
 
 export interface ITeamEntity {
-	id: number;
-	name: string;
+    id: number;
+    name: string;
 }
 
 export interface IWorldEntity {
-	kind: 'world';
+    kind: 'world';
 }
 
 export interface IConsoleEntity {
-	kind: 'console';
+    kind: 'console';
 }
 
 export interface IChickenEntity {
-	kind: 'chicken';
+    kind: 'chicken';
 
-	entityId: number;
+    entityId: number;
 }
 
 export interface IBasePlayerEntity {
-	entityId: number;
+    entityId: number;
 
-	name: string;
+    name: string;
 
-	position?: Vector;
+    position?: Vector;
 
-	team: ITeamEntity;
+    team: ITeamEntity;
 }
 
 export interface IPlayerEntity extends IBasePlayerEntity {
-	kind: 'player';
+    kind: 'player';
 
-	steamId: string;
+    steamId: string;
 }
 
 export interface IBotEntity extends IBasePlayerEntity {
-	kind: 'bot';
+    kind: 'bot';
 }
 
 export type Entity = IWorldEntity | IConsoleEntity | IChickenEntity | IPlayerEntity | IBotEntity;
 
 export const parseTeam = (rawTeam: string): ITeamEntity => {
-	const id = teamMapper[rawTeam] ?? Team.UNKNOWN;
+    const id = teamMapper[rawTeam] ?? Team.UNKNOWN;
 
-	return {
-		id,
-		name: Team[id]
-	};
+    return {
+        id,
+        name: Team[id],
+    };
 };
 
 export const parseEntity = (rawEntity: string): Entity => {
-	if (baseWorldRe.test(rawEntity)) {
-		return {
-			kind: 'world'
-		};
-	}
+    if (baseWorldRe.test(rawEntity)) {
+        return {
+            kind: 'world',
+        };
+    }
 
-	if (baseEntityRe.test(rawEntity)) {
-		// biome-ignore lint/style/noNonNullAssertion: we already test by pattern
-		const { entityId } = rawEntity.match(baseEntityRe)!.groups! as {
-			entityId: string;
-		};
+    if (baseEntityRe.test(rawEntity)) {
+        // biome-ignore lint/style/noNonNullAssertion: we already test by pattern
+        const { entityId } = rawEntity.match(baseEntityRe)!.groups! as {
+            entityId: string;
+        };
 
-		return {
-			kind: 'chicken',
+        return {
+            kind: 'chicken',
 
-			entityId: Number(entityId)
-		};
-	}
+            entityId: Number(entityId),
+        };
+    }
 
-	if (basePlayerRe.test(rawEntity)) {
-		const {
-			entityId: rawEntityId,
-			steamId,
+    if (basePlayerRe.test(rawEntity)) {
+        const {
+            entityId: rawEntityId,
+            steamId,
 
-			name,
-			team: rawTeam
-			// biome-ignore lint/style/noNonNullAssertion: we already test by pattern
-		} = rawEntity.match(basePlayerRe)!.groups as {
-			entityId: string;
-			steamId: string;
+            name,
+            team: rawTeam,
+            // biome-ignore lint/style/noNonNullAssertion: we already test by pattern
+        } = rawEntity.match(basePlayerRe)!.groups as {
+            entityId: string;
+            steamId: string;
 
-			name: string;
-			team: string;
-		};
+            name: string;
+            team: string;
+        };
 
-		if (steamId === 'Console') {
-			return {
-				kind: 'console'
-			};
-		}
+        if (steamId === 'Console') {
+            return {
+                kind: 'console',
+            };
+        }
 
-		const entityId = Number(rawEntityId);
-		const team = parseTeam(rawTeam);
+        const entityId = Number(rawEntityId);
+        const team = parseTeam(rawTeam);
 
-		if (steamId === 'BOT') {
-			return {
-				kind: 'bot',
+        if (steamId === 'BOT') {
+            return {
+                kind: 'bot',
 
-				entityId,
+                entityId,
 
-				name,
+                name,
 
-				team
-			};
-		}
+                team,
+            };
+        }
 
-		return {
-			kind: 'player',
+        return {
+            kind: 'player',
 
-			entityId,
-			steamId,
+            entityId,
+            steamId,
 
-			name,
+            name,
 
-			team
-		};
-	}
+            team,
+        };
+    }
 
-	throw new Error(`Failed parse entity "${rawEntity}"`);
+    throw new Error(`Failed parse entity "${rawEntity}"`);
 };
 
-export const parseVector = (rawVector: string): Vector => (
-	rawVector.split(' ').map(Number) as Vector
-);
+export const parseVector = (rawVector: string): Vector => rawVector.split(' ').map(Number) as Vector;

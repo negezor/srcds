@@ -1,38 +1,30 @@
-import { type IBaseEvent, defineParser } from './parser';
+import { type Entity, entityRe, parseEntity } from '../entities';
 import { concatPattern } from '../helpers';
-import {
-	type Entity,
-
-	entityRe,
-
-	parseEntity
-} from '../entities';
+import { type IBaseEvent, defineParser } from './parser';
 
 export type PurchasedEventPayload = {
-	player: Entity;
+    player: Entity;
 
-	weaponName: string;
+    weaponName: string;
 };
 
 export type PurchasedEvent = IBaseEvent<'purchased', PurchasedEventPayload>;
 
 // "PlayerName<93><STEAM_1:0:12345><CT>" purchased "aug"
 export const purchasedParser = defineParser<PurchasedEvent>({
-	type: 'purchased',
+    type: 'purchased',
 
-	patterns: [
-		concatPattern`^(?<player>${entityRe}) purchased "(?<weaponName>[^"]+)"$`
-	],
+    patterns: [concatPattern`^(?<player>${entityRe}) purchased "(?<weaponName>[^"]+)"$`],
 
-	parse({
-		player,
+    parse({
+        player,
 
-		weaponName
-	}) {
-		return {
-			player: parseEntity(player),
+        weaponName,
+    }) {
+        return {
+            player: parseEntity(player),
 
-			weaponName
-		};
-	}
+            weaponName,
+        };
+    },
 });

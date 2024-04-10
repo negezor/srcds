@@ -1,69 +1,59 @@
-import { type IBaseEvent, defineParser } from './parser';
+import { type Entity, entityRe, parseEntity } from '../entities';
 import { concatPattern } from '../helpers';
-import {
-	type Entity,
-
-	entityRe,
-
-	parseEntity
-} from '../entities';
+import { type IBaseEvent, defineParser } from './parser';
 
 export interface IValidatedValidEventPayload {
-	kind: 'valid';
+    kind: 'valid';
 
-	player: Entity;
+    player: Entity;
 }
 
 export interface IValidatedFailedEventPayload {
-	kind: 'failed';
+    kind: 'failed';
 
-	player: {
-		name: string;
-	};
+    player: {
+        name: string;
+    };
 
-	code: number;
+    code: number;
 }
 
-export type ValidatedEventPayload =
-IValidatedValidEventPayload
-| IValidatedFailedEventPayload;
+export type ValidatedEventPayload = IValidatedValidEventPayload | IValidatedFailedEventPayload;
 
 export type ValidatedEvent = IBaseEvent<'validated', ValidatedEventPayload>;
 
 // "PlayerName<93><STEAM_1:0:12345><>" STEAM USERID validated
 // STEAMAUTH: Client PlayerName received failure code 6
 export const validatedParser = defineParser<ValidatedEvent>({
-	type: 'validated',
+    type: 'validated',
 
-	patterns: [
-		concatPattern`^(?<player>${entityRe}) STEAM USERID validated$`,
-		concatPattern`^STEAMAUTH: Client (?<playerName>.+) received failure code (?<code>\\d+)$`
-	],
+    patterns: [
+        concatPattern`^(?<player>${entityRe}) STEAM USERID validated$`,
+        concatPattern`^STEAMAUTH: Client (?<playerName>.+) received failure code (?<code>\\d+)$`,
+    ],
 
-	parse({
-		player,
+    parse({
+        player,
 
-		playerName,
-		code
-	}) {
-		if (player) {
-			return {
-				kind: 'valid',
+        playerName,
+        code,
+    }) {
+        if (player) {
+            return {
+                kind: 'valid',
 
-				player: parseEntity(player)
-			};
-		}
+                player: parseEntity(player),
+            };
+        }
 
-		return {
-			kind: 'failed',
+        return {
+            kind: 'failed',
 
-			player: {
-				name: playerName
-			},
+            player: {
+                name: playerName,
+            },
 
-			code: code !== undefined
-				? Number(code)
-				: code
-		};
-	}
+            code: code !== undefined ? Number(code) : code,
+        };
+    },
 });

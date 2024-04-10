@@ -1,36 +1,30 @@
-import { type IBaseEvent, defineParser } from './parser';
+import { type ITeamEntity, parseTeam } from '../entities';
 import { concatPattern } from '../helpers';
-import {
-	type ITeamEntity,
-
-	parseTeam
-} from '../entities';
+import { type IBaseEvent, defineParser } from './parser';
 
 export type TeamNameEventPayload = {
-	team: ITeamEntity;
+    team: ITeamEntity;
 
-	name: string;
+    name: string;
 };
 
 export type TeamNameEvent = IBaseEvent<'team_name', TeamNameEventPayload>;
 
 // Team playing "CT": Test
 export const teamNameParser = defineParser<TeamNameEvent>({
-	type: 'team_name',
+    type: 'team_name',
 
-	patterns: [
-		concatPattern`^Team playing "(?<team>[^"]+)": (?<name>.+)$`
-	],
+    patterns: [concatPattern`^Team playing "(?<team>[^"]+)": (?<name>.+)$`],
 
-	parse({
-		team,
+    parse({
+        team,
 
-		name
-	}) {
-		return {
-			team: parseTeam(team),
+        name,
+    }) {
+        return {
+            team: parseTeam(team),
 
-			name
-		};
-	}
+            name,
+        };
+    },
 });

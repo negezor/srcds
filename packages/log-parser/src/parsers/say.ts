@@ -1,19 +1,13 @@
-import { type IBaseEvent, defineParser } from './parser';
+import { type Entity, entityRe, parseEntity } from '../entities';
 import { concatPattern } from '../helpers';
-import {
-	type Entity,
-
-	entityRe,
-
-	parseEntity
-} from '../entities';
+import { type IBaseEvent, defineParser } from './parser';
 
 export type SayEventPayload = {
-	player: Entity;
+    player: Entity;
 
-	to: 'global' | 'team';
+    to: 'global' | 'team';
 
-	message: string;
+    message: string;
 };
 
 export type SayEvent = IBaseEvent<'say', SayEventPayload>;
@@ -21,27 +15,23 @@ export type SayEvent = IBaseEvent<'say', SayEventPayload>;
 // "Player<93><STEAM_1:0:12345><CT>" say "hello"
 // "Player<93><STEAM_1:0:12345><CT>" say_team "hello"
 export const sayParser = defineParser<SayEvent>({
-	type: 'say',
+    type: 'say',
 
-	patterns: [
-		concatPattern`^(?<player>${entityRe}) (?<to>say|say_team) "(?<message>.+)"$`
-	],
+    patterns: [concatPattern`^(?<player>${entityRe}) (?<to>say|say_team) "(?<message>.+)"$`],
 
-	parse({
-		player,
+    parse({
+        player,
 
-		to,
+        to,
 
-		message
-	}) {
-		return {
-			player: parseEntity(player),
+        message,
+    }) {
+        return {
+            player: parseEntity(player),
 
-			to: to === 'say'
-				? 'global'
-				: 'team',
+            to: to === 'say' ? 'global' : 'team',
 
-			message
-		};
-	}
+            message,
+        };
+    },
 });
