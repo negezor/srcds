@@ -1,6 +1,6 @@
 {
 	"name": "@srcds/log-parser",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Parser SRCDS logs",
 	"license": "MIT",
 	"author": {
@@ -28,7 +28,7 @@
 		".": {
 			"import": "./lib/index.mjs",
 			"require": "./lib/index.js",
-            "types": "./lib/index.d.ts"
+			"types": "./lib/index.d.ts"
 		}
 	},
 	"sideEffects": false,
